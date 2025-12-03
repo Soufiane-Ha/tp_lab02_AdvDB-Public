@@ -138,6 +138,14 @@ def parse_select_query(query, schema) -> dict:
         "condition": {"field": "id", "value": 3}
     }
     """
+```
+### 1. 1. Solution Parse SELECT Queries
+
+```python
+def parse_select_query(query, schema) -> dict:
+    """
+    SELECT name, salary FROM Employee WHERE id = 3
+    """
    
 ```
 
@@ -157,7 +165,27 @@ def parse_insert_query(query, schema) -> dict:
     
 ```
 
+### 2. 1. Solution Parse INSERT Queries
+
+```python
+def parse_insert_query(query, schema) -> dict:
+    """
+    INSERT INTO Employee (id, name, salary) VALUES (4, Alice, 4500)
+    """
+ ```
+
+
 ### 3. Execute Queries
+
+```python
+def execute_query(query, schema):
+    """
+    Execute a SELECT or INSERT query on the structured records stored in the heap file.
+    """
+    
+```
+
+### 3. 1. Solution Execute Queries
 
 ```python
 def execute_query(query, schema):
