@@ -302,6 +302,27 @@ def execute_query(query, schema):
 ### 3. 1. Solution Execute Queries
 
 ```python
+## Mysqli Query
+$result = mysqli_query($conn, $sql);
+
+## Query
+$result = $conn->query($sql);
+
+## PDO Query
+$stmt = $pdo->query($sql);
+
+## Prepare Query
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+          |
+Execute ---
+
+```
+
+
+### 3. 2. Solution Execute Queries
+
+```python
 def execute_query(query, schema):
     """
     query = query.strip().upper()
