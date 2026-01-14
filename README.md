@@ -190,7 +190,6 @@ def execute_query(query, schema):
 ```python
 def execute_query(query, schema):
     """
-    def execute_query(query, schema):
     query = query.strip().upper()
 
     if query.startswith("SELECT"):
