@@ -170,7 +170,7 @@ def parse_insert_query(query, schema) -> dict:
 ```python
 def parse_insert_query(query, schema) -> dict:
     """
-    INSERT INTO Employee (id, name, salary) VALUES (4, Alice, 4500)
+    INSERT INTO Employee (id, name, salary) VALUES (4, 'Alice', 4500)
     """
  ```
 
@@ -190,7 +190,39 @@ def execute_query(query, schema):
 ```python
 def execute_query(query, schema):
     """
-    Execute a SELECT or INSERT query on the structured records stored in the heap file.
+    def execute_query(query, schema):
+    query = query.strip().upper()
+
+    if query.startswith("SELECT"):
+        parsed = parse_select_query(query, schema)
+        records = read_all_structured_records(parsed["table"], schema)
+
+        # Apply WHERE condition if exists
+        if parsed.get("condition"):
+            field = parsed["condition"]["field"]
+            value = parsed["condition"]["value"]
+            records = [r for r in records if r[field] == value]
+
+        # Select specific fields
+        if parsed["fields"] != ["*"]:
+            records = [
+                {f: r[f] for f in parsed["fields"]}
+                for r in records
+            ]
+
+        return records
+
+    elif query.startswith("INSERT"):
+        parsed = parse_insert_query(query, schema)
+
+        record = dict(zip(parsed["fields"], parsed["values"]))
+        insert_structured_record(parsed["table"], schema, record)
+
+        return "Record inserted successfully"
+
+    else:
+        raise ValueError("Unsupported query type")
+
     """
     
 ```
